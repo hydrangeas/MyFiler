@@ -20,7 +20,7 @@
                    Title="{Binding Title}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="57"/>
+            <RowDefinition Height="58"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ToolBarTray>
@@ -47,7 +47,7 @@
             </ToolBar>
         </ToolBarTray>
         <Grid Grid.Row="1">
-            <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+            <ContentControl prism:RegionManager.RegionName="FileList" />
         </Grid>
     </Grid>
 </metro:MetroWindow>

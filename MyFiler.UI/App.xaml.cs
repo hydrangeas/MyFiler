@@ -1,5 +1,7 @@
-﻿using Prism.Ioc;
+﻿using MyFiler.UI.FileList;
 using MyFiler.UI.Views;
+using Prism.Ioc;
+using Prism.Modularity;
 using System.Windows;
 
 namespace MyFiler.UI
@@ -17,6 +19,11 @@ namespace MyFiler.UI
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
 
+        }
+
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            moduleCatalog.AddModule<FileListModule>(InitializationMode.WhenAvailable);
         }
     }
 }
