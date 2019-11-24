@@ -3,9 +3,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyName>MyFiler.UI</AssemblyName>
+    <AssemblyName>MyFiler</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.1-ci783" />
     <PackageReference Include="Prism.Unity" Version="7.2.0.1367" />
+    <PackageReference Include="System.Management" Version="4.7.0-preview3.19551.4" />
   </ItemGroup>
 </Project>
