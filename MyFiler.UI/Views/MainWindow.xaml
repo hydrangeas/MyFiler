@@ -4,7 +4,9 @@
                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
                    xmlns:prism="http://prismlibrary.com/"
                    prism:ViewModelLocator.AutoWireViewModel="True"
-        
+                   xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+                   xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    mc:Ignorable="d"
@@ -17,6 +19,35 @@
                    BorderThickness="1"
                    Title="{Binding Title}">
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="57"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ToolBarTray>
+            <ToolBar
+                Style="{DynamicResource MaterialDesignToolBar}"
+                ClipToBounds="False">
+                <Button
+                    ToolTip="Upload Files">
+                    <md:PackIcon
+                        Kind="Backup" />
+                </Button>
+                <Button
+                    ToolTip="Refresh">
+                    <md:PackIcon
+                        Kind="CarEngineStart" />
+                </Button>
+                <Separator />
+                <Button
+                    ToolTip="Settings">
+                    <md:PackIcon
+                        Kind="Settings" />
+                </Button>
+                <Separator />
+            </ToolBar>
+        </ToolBarTray>
+        <Grid Grid.Row="1">
+            <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        </Grid>
     </Grid>
 </metro:MetroWindow>
