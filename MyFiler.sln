@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFiler.UI.FileList", "MyFi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFilerTest.Tests", "MyFilerTest.Tests\MyFilerTest.Tests.csproj", "{99F330AA-0454-465B-875A-94CDD65FEB5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFiler.Domain", "MyFiler.Domain\MyFiler.Domain.csproj", "{1B22092A-74DA-46C8-86C6-FA38D78DE102}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{99F330AA-0454-465B-875A-94CDD65FEB5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99F330AA-0454-465B-875A-94CDD65FEB5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99F330AA-0454-465B-875A-94CDD65FEB5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B22092A-74DA-46C8-86C6-FA38D78DE102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B22092A-74DA-46C8-86C6-FA38D78DE102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B22092A-74DA-46C8-86C6-FA38D78DE102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B22092A-74DA-46C8-86C6-FA38D78DE102}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

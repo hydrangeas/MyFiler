@@ -13,10 +13,10 @@
     <Grid>
         <DataGrid
             Margin="0 8 0 0"
-            ItemsSource="{Binding Items3}"
+            ItemsSource="{Binding FileList}"
             CanUserSortColumns="True"
             CanUserAddRows="False"
-            AutoGenerateColumns="False"
+            AutoGenerateColumns="True"
             materialDesign:DataGridAssist.CellPadding="13 8 8 8"
             materialDesign:DataGridAssist.ColumnHeaderPadding="8">
         </DataGrid>
