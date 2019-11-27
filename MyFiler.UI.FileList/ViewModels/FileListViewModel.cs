@@ -17,7 +17,9 @@ namespace MyFiler.UI.FileList.ViewModels
         public ObservableCollection<FileListViewModelFiles> Files { get; }
             = new ObservableCollection<FileListViewModelFiles>();
 
-        public FileListViewModel()
+        public FileListViewModel(
+            IFileDatabaseRepository fileDatabaseRepository
+            )
         {
             var files = new List<FileEntity>
             {
