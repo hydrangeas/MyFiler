@@ -20,7 +20,7 @@ namespace MyFilerTest.Tests
                 new FileEntity(
                     "test",
                     new PhysicalFileName(new Guid("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DA")),
-                    123
+                    new FileSize(1230)
                     )
                 );
             fileDatabaseMock.Setup(x => x.GetData()).Returns(entities);
@@ -31,7 +31,7 @@ namespace MyFilerTest.Tests
             viewModel.Files.Count.Is(1);
             viewModel.Files[0].LogicalFileName.Value.Is("test");
             viewModel.Files[0].PhysicalFileName.Value.Is("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DA");
-            viewModel.Files[0].FileSize.Value.Is<UInt64>(123);
+            viewModel.Files[0].FileSize.Value.Is("1.20 KB");
         }
     }
 }

@@ -15,8 +15,8 @@ namespace MyFiler.UI.FileList.ViewModels
             = new ReactivePropertySlim<string>().ToReadOnlyReactivePropertySlim();
         public ReadOnlyReactivePropertySlim<string> PhysicalFileName { get; }
             = new ReactivePropertySlim<string>().ToReadOnlyReactivePropertySlim();
-        public ReadOnlyReactivePropertySlim<UInt64> FileSize { get; }
-            = new ReactivePropertySlim<UInt64>().ToReadOnlyReactivePropertySlim();
+        public ReadOnlyReactivePropertySlim<string> FileSize { get; }
+            = new ReactivePropertySlim<string>().ToReadOnlyReactivePropertySlim();
 
         private CompositeDisposable disposables = new CompositeDisposable();
 
@@ -33,8 +33,9 @@ namespace MyFiler.UI.FileList.ViewModels
                 .ToReadOnlyReactivePropertySlim()
                 .AddTo(disposables);
 
-            FileSize = fileEntity.FileSize
-                .ToReadOnlyReactivePropertySlim<UInt64>()
+            FileSize
+                = new ReactivePropertySlim<string>(fileEntity.FileSize.Value.DisplayValueWithUnit)
+                .ToReadOnlyReactivePropertySlim()
                 .AddTo(disposables);
         }
     }

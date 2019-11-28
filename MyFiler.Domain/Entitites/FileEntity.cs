@@ -11,7 +11,7 @@ namespace MyFiler.Domain.Entitites
         public FileEntity(
             string logicalFileName,
             PhysicalFileName physicalFileName,
-            UInt64 fileSize)
+            FileSize fileSize)
         {
             LogicalFileName.Value = logicalFileName;
             PhygicalFileName.Value = physicalFileName;
@@ -22,7 +22,7 @@ namespace MyFiler.Domain.Entitites
             = new ReactivePropertySlim<string>();
         public ReactivePropertySlim<PhysicalFileName> PhygicalFileName { get; }
             = new ReactivePropertySlim<PhysicalFileName>();
-        public ReactivePropertySlim<UInt64> FileSize { get; }
-            = new ReactivePropertySlim<UInt64>();
+        public ReactivePropertySlim<FileSize> FileSize { get; }
+            = new ReactivePropertySlim<FileSize>();
     }
 }
