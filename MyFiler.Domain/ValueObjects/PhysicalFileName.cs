@@ -21,7 +21,7 @@ namespace MyFiler.Domain.ValueObjects
         {
             get
             {
-                return Value.ToString();
+                return Value.ToString().ToUpper();
             }
         }
     }

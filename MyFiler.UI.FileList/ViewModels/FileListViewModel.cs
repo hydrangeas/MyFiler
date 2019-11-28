@@ -21,10 +21,7 @@ namespace MyFiler.UI.FileList.ViewModels
             IFileDatabaseRepository fileDatabaseRepository
             )
         {
-            var files = new List<FileEntity>
-            {
-                new FileEntity("test", new PhysicalFileName(Guid.NewGuid())),
-            };
+            var files = fileDatabaseRepository.GetData();
 
             foreach(var file in files)
             {

@@ -19,7 +19,7 @@ namespace MyFilerTest.Tests
             entities.Add(
                 new FileEntity(
                     "test",
-                    new PhysicalFileName(new Guid())
+                    new PhysicalFileName(new Guid("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DA"))
                     )
                 );
             fileDatabaseMock.Setup(x => x.GetData()).Returns(entities);
@@ -28,6 +28,8 @@ namespace MyFilerTest.Tests
                 fileDatabaseMock.Object
                 );
             viewModel.Files.Count.Is(1);
+            viewModel.Files[0].LogicalFileName.Value.Is("test");
+            viewModel.Files[0].PhysicalFileName.Value.Is("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DA");
         }
     }
 }
