@@ -43,6 +43,14 @@ namespace MyFilerTest.Tests
             viewModel.Files[1].PhysicalFileName.Value.Is("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DB");
             viewModel.Files[1].FileSize.Value.Is("1.24 MB");
 
+
+            viewModel.FileList.Count.Is(2);
+            viewModel.FileList[0].LogicalFileName.Is(viewModel.Files[0].LogicalFileName);
+            viewModel.FileList[0].FileSize.Is(viewModel.Files[0].FileSize);
+            viewModel.FileList[0].PhysicalFileName.Is(viewModel.Files[0].PhysicalFileName);
+            viewModel.FileList[1].LogicalFileName.Is(viewModel.Files[1].LogicalFileName);
+            viewModel.FileList[1].FileSize.Is(viewModel.Files[1].FileSize);
+            viewModel.FileList[1].PhysicalFileName.Is(viewModel.Files[1].PhysicalFileName);
         }
     }
 }
