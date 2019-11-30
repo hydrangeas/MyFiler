@@ -44,7 +44,7 @@ namespace MyFilerTest.Tests
                     new FileSize(1300234),
                     new Comment("Test Comment")
                     )
-                ); ;
+                );
             fileDatabaseMock.Setup(x => x.GetData()).Returns(entities);
 
             var viewModel = new FileListViewModel(
