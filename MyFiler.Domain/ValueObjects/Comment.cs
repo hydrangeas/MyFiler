@@ -29,7 +29,7 @@ namespace MyFiler.Domain.ValueObjects
         {
             get
             {
-                return Value.Replace(Environment.NewLine, "");
+                return Value.Replace(Environment.NewLine, " ");
             }
         }
     }
