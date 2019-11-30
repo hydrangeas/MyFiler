@@ -1,4 +1,6 @@
-﻿using MyFiler.UI.FileList;
+﻿using MyFiler.Domain.ValueObjects;
+using MyFiler.Infrastructure.LocalDB;
+using MyFiler.UI.FileList;
 using MyFiler.UI.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -18,7 +20,7 @@ namespace MyFiler.UI
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterInstance<IFileDatabaseRepository>(new FileDatabase());
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

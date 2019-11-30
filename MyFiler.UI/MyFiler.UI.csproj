@@ -12,6 +12,7 @@
     <PackageReference Include="System.Management" Version="4.7.0-preview3.19551.4" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyFiler.Infrastructure\MyFiler.Infrastructure.csproj" />
     <ProjectReference Include="..\MyFiler.UI.FileList\MyFiler.UI.FileList.csproj" />
   </ItemGroup>
 </Project>
