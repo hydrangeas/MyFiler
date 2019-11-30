@@ -39,7 +39,8 @@ namespace MyFiler.UI.FileList.ViewModels
                 .ToReadOnlyReactivePropertySlim()
                 .AddTo(disposables);
 
-            Comment = targetFileEntity.Comment
+            Comment
+                = new ReactivePropertySlim<string>(fileEntity.Comment.Value.DisplayValueWithoutNewline)
                 .ToReadOnlyReactivePropertySlim<string>()
                 .AddTo(disposables);
         }

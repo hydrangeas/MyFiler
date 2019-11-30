@@ -12,7 +12,7 @@ namespace MyFiler.Domain.Entitites
             string logicalFileName,
             PhysicalFileName physicalFileName,
             FileSize fileSize,
-            string comment)
+            Comment comment)
         {
             LogicalFileName.Value = logicalFileName;
             PhygicalFileName.Value = physicalFileName;
@@ -26,7 +26,7 @@ namespace MyFiler.Domain.Entitites
             = new ReactivePropertySlim<PhysicalFileName>();
         public ReactivePropertySlim<FileSize> FileSize { get; }
             = new ReactivePropertySlim<FileSize>();
-        public ReactivePropertySlim<string> Comment { get; }
-            = new ReactivePropertySlim<string>();
+        public ReactivePropertySlim<Comment> Comment { get; }
+            = new ReactivePropertySlim<Comment>();
     }
 }

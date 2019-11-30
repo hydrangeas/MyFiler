@@ -16,12 +16,25 @@ namespace MyFilerTest.Tests
         {
             var fileDatabaseMock = new Mock<IFileDatabaseRepository>();
             var entities = new List<FileEntity>();
+            fileDatabaseMock.Setup(x => x.GetData()).Returns(entities);
+
+            var viewModel = new FileListViewModel(
+                fileDatabaseMock.Object
+                );
+            viewModel.Files.Count.Is(0);
+        }
+
+        [TestMethod]
+        public void 最初からデータがある状態()
+        {
+            var fileDatabaseMock = new Mock<IFileDatabaseRepository>();
+            var entities = new List<FileEntity>();
             entities.Add(
                 new FileEntity(
                     "test",
                     new PhysicalFileName(new Guid("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DA")),
                     new FileSize(1230),
-                    ""
+                    new Comment("")
                     )
                 );
             entities.Add(
@@ -29,7 +42,7 @@ namespace MyFilerTest.Tests
                     "test2",
                     new PhysicalFileName(new Guid("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DB")),
                     new FileSize(1300234),
-                    "Test Comment"
+                    new Comment("Test Comment")
                     )
                 ); ;
             fileDatabaseMock.Setup(x => x.GetData()).Returns(entities);
