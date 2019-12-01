@@ -130,7 +130,6 @@ namespace MyFilerTest.Tests
             viewModel.Files[0].PhysicalFileName.Value.Is("E93ECBD8-EB7F-4478-B99D-C1933EBA3563");
             viewModel.Files[0].FileSize.Value.Is("1.20 KB");
             viewModel.Files[0].Comment.Value.IsNull();
-
         }
     }
 }

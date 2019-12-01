@@ -14,7 +14,7 @@ using System.Windows;
 
 namespace MyFiler.UI.FileList.ViewModels
 {
-    public class FileListViewModel : ViewModelBase, IDropTarget
+    public class FileListViewModel : BindableBase, IDropTarget
     {
         public IFileDatabaseRepository FileDatabase = null;
         public IFileRepository FileInformation = null;
@@ -80,12 +80,7 @@ namespace MyFiler.UI.FileList.ViewModels
                                 ));
                     //_logger.GetLogger().Info($"[Drop] {file} is registered");
                 }
-                var files = FileDatabase.GetData();
-                foreach (var afile in files)
-                {
-                    Files.Add(new FileListViewModelFiles(afile));
-                }
-                //FileList = Files.ToReadOnlyReactiveCollection();
+                Update();
             }
             catch (Exception ex)
             {
@@ -98,7 +93,7 @@ namespace MyFiler.UI.FileList.ViewModels
             }
         }
 
-        public override void Update()
+        public void Update()
         {
             var files = FileDatabase.GetData();
             foreach (var afile in files)
@@ -106,6 +101,10 @@ namespace MyFiler.UI.FileList.ViewModels
                 Files.Add(new FileListViewModelFiles(afile));
             }
             //FileList = Files.ToReadOnlyReactiveCollection();
+        }
+        public virtual Guid GetNewGuid()
+        {
+            return Guid.NewGuid();
         }
 
     }
