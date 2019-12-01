@@ -10,7 +10,8 @@ namespace MyFiler.UI.FileList.ViewModels
 {
     public class FileListViewModelFiles: BindableBase
     {
-        public FileEntity targetFileEntity = null;
+        public ReadOnlyReactivePropertySlim<FileEntity> FileDetail { get; }
+            = new ReactivePropertySlim<FileEntity>().ToReadOnlyReactivePropertySlim();
         public ReadOnlyReactivePropertySlim<string> LogicalFileName { get; }
             = new ReactivePropertySlim<string>().ToReadOnlyReactivePropertySlim();
         public ReadOnlyReactivePropertySlim<string> PhysicalFileName { get; }
@@ -23,9 +24,12 @@ namespace MyFiler.UI.FileList.ViewModels
 
         public FileListViewModelFiles(FileEntity fileEntity)
         {
-            targetFileEntity = fileEntity;
+            FileDetail
+                = new ReactivePropertySlim<FileEntity>(fileEntity)
+                .ToReadOnlyReactivePropertySlim()
+                .AddTo(disposables);
 
-            LogicalFileName = targetFileEntity.LogicalFileName
+            LogicalFileName = FileDetail.Value.LogicalFileName
                 .ToReadOnlyReactivePropertySlim<string>()
                 .AddTo(disposables);
 
