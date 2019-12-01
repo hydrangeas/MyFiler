@@ -3,6 +3,7 @@ using MyFiler.Domain.Entitites;
 using MyFiler.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace MyFiler.Infrastructure.LocalDB
@@ -96,7 +97,7 @@ WHERE physical_file_name = @physical_file_name
                     new SqlParameter("@logical_file_name", fileEntity.LogicalFileName.Value),
                     new SqlParameter("@physical_file_name", fileEntity.PhygicalFileName.Value.Value),
                     new SqlParameter("@file_size", (Int64) fileEntity.FileSize.Value.Value),
-                    new SqlParameter("@comment", "")
+                    new SqlParameter("@comment", fileEntity.Comment.Value.Value ?? (object)DBNull.Value)
                 };
                 command.Parameters.AddRange(parameters.ToArray());
 
