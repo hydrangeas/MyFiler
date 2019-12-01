@@ -13,7 +13,7 @@
     d:DesignHeight="300" d:DesignWidth="300"
     >
     <Grid
-        dd:DragDrop.IsDragSource="False"
+        dd:DragDrop.IsDragSource="True"
         dd:DragDrop.IsDropTarget="True"
         dd:DragDrop.DropHandler="{Binding}">
         <DataGrid
