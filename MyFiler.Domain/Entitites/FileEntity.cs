@@ -15,14 +15,14 @@ namespace MyFiler.Domain.Entitites
             Comment comment)
         {
             LogicalFileName.Value = logicalFileName;
-            PhygicalFileName.Value = physicalFileName;
+            PhysicalFileName.Value = physicalFileName;
             FileSize.Value = fileSize;
             Comment.Value = comment;
         }
 
         public ReactivePropertySlim<string> LogicalFileName { get; }
             = new ReactivePropertySlim<string>();
-        public ReactivePropertySlim<PhysicalFileName> PhygicalFileName { get; }
+        public ReactivePropertySlim<PhysicalFileName> PhysicalFileName { get; }
             = new ReactivePropertySlim<PhysicalFileName>();
         public ReactivePropertySlim<FileSize> FileSize { get; }
             = new ReactivePropertySlim<FileSize>();

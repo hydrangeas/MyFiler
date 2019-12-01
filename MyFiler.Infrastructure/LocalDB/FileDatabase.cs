@@ -95,7 +95,7 @@ WHERE physical_file_name = @physical_file_name
                 var parameters = new List<SqlParameter>
                 {
                     new SqlParameter("@logical_file_name", fileEntity.LogicalFileName.Value),
-                    new SqlParameter("@physical_file_name", fileEntity.PhygicalFileName.Value.Value),
+                    new SqlParameter("@physical_file_name", fileEntity.PhysicalFileName.Value.Value),
                     new SqlParameter("@file_size", (Int64) fileEntity.FileSize.Value.Value),
                     new SqlParameter("@comment", fileEntity.Comment.Value.Value ?? (object)DBNull.Value)
                 };

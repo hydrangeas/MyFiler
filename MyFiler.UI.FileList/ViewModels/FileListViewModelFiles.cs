@@ -30,7 +30,7 @@ namespace MyFiler.UI.FileList.ViewModels
                 .AddTo(disposables);
 
             PhysicalFileName
-                = new ReactivePropertySlim<string>(fileEntity.PhygicalFileName.Value.DisplayValue)
+                = new ReactivePropertySlim<string>(fileEntity.PhysicalFileName.Value.DisplayValue)
                 .ToReadOnlyReactivePropertySlim()
                 .AddTo(disposables);
 

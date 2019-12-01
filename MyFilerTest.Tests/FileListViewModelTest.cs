@@ -92,7 +92,7 @@ namespace MyFilerTest.Tests
                         new Comment(null)
                         );
                     value.LogicalFileName.Value.Is(entity.LogicalFileName.Value);
-                    value.PhygicalFileName.Value.Is(entity.PhygicalFileName.Value);
+                    value.PhysicalFileName.Value.Is(entity.PhysicalFileName.Value);
                     value.FileSize.Value.Is(entity.FileSize.Value);
                     value.Comment.Value.Is(entity.Comment.Value);
 
