@@ -1,5 +1,6 @@
 ﻿using GongSolutions.Wpf.DragDrop;
 using MyFiler.Domain.Entitites;
+using MyFiler.Domain.Repositories;
 using MyFiler.Domain.ValueObjects;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -13,9 +14,10 @@ using System.Windows;
 
 namespace MyFiler.UI.FileList.ViewModels
 {
-    public class FileListViewModel : BindableBase, IDropTarget
+    public class FileListViewModel : ViewModelBase, IDropTarget
     {
-        IFileDatabaseRepository fileDatabase = null;
+        public IFileDatabaseRepository FileDatabase = null;
+        public IFileRepository FileInformation = null;
 
         public ReadOnlyReactiveCollection<FileListViewModelFiles> FileList { get; }
             = new ReactiveCollection<FileListViewModelFiles>().ToReadOnlyReactiveCollection();
@@ -23,17 +25,18 @@ namespace MyFiler.UI.FileList.ViewModels
             = new ObservableCollection<FileListViewModelFiles>();
 
         public FileListViewModel(
-            IFileDatabaseRepository fileDatabaseRepository
+            IFileDatabaseRepository fileDatabaseRepository,
+            IFileRepository fileRepository
             )
         {
-            fileDatabase = fileDatabaseRepository;
-            var files = fileDatabaseRepository.GetData();
+            FileDatabase = fileDatabaseRepository;
+            FileInformation = fileRepository;
 
-            foreach(var file in files)
+            var files = FileDatabase.GetData();
+            foreach (var afile in files)
             {
-                Files.Add(new FileListViewModelFiles(file));
+                Files.Add(new FileListViewModelFiles(afile));
             }
-
             FileList = Files.ToReadOnlyReactiveCollection();
         }
 
@@ -61,23 +64,28 @@ namespace MyFiler.UI.FileList.ViewModels
             {
                 dropInfo.Effects = DragDropEffects.All;
                 var dragFileList = ((DataObject)dropInfo.Data).GetFileDropList().Cast<string>();
-                foreach (var file in dragFileList)
+                foreach (var afile in dragFileList)
                 {
-                    //var fileInfo = filedata.GetFileInfo(file);
+                    var fileInfo = FileInformation.GetFileInfo(afile);
                     //_logger.GetLogger().Info($"[Drop] {file} is processing..");
                     //var physicalFileName = GetNewGuid();
                     //await _cadFileStorage.Upload(fileInfo, physicalFileName);
                     //_logger.GetLogger().Info($"[Drop] {file} is uploaded");
-                    //_cadFileMetadata.Save(
-                    //    new CadFileEntity(
-                    //            fileInfo,
-                    //            physicalFileName,
-                    //            CadFiles.Count == 0 ? 1 : CadFiles.Max(x => x.DisplayOrder) + 1,
-                    //            GetDateTime()
-                    //        ));
+                    FileDatabase.Save(
+                        new FileEntity(
+                                fileInfo.Name,
+                                new PhysicalFileName(GetNewGuid()),
+                                new FileSize((UInt64)fileInfo.Length),
+                                new Comment(null)
+                                ));
                     //_logger.GetLogger().Info($"[Drop] {file} is registered");
                 }
-                //Update();
+                var files = FileDatabase.GetData();
+                foreach (var afile in files)
+                {
+                    Files.Add(new FileListViewModelFiles(afile));
+                }
+                //FileList = Files.ToReadOnlyReactiveCollection();
             }
             catch (Exception ex)
             {
@@ -89,5 +97,16 @@ namespace MyFiler.UI.FileList.ViewModels
                 //IsBusy = false;
             }
         }
+
+        public override void Update()
+        {
+            var files = FileDatabase.GetData();
+            foreach (var afile in files)
+            {
+                Files.Add(new FileListViewModelFiles(afile));
+            }
+            //FileList = Files.ToReadOnlyReactiveCollection();
+        }
+
     }
 }

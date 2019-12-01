@@ -68,5 +68,45 @@ SELECT [id]
             }
             return result;
         }
+
+        public void Save(FileEntity fileEntity)
+        {
+            string insert = @"
+INSERT INTO metadata
+(logical_file_name, physical_file_name, file_size, comment, created, updated)
+VALUES
+(@logical_file_name, @physical_file_name, @file_size, @comment, GETDATE(), GETDATE())
+";
+            string update = @"
+UPDATE metadata
+SET logical_name = @logical_name
+   ,file_size = @file_size
+   ,comment = @comment
+   ,updated = GETDATE()
+WHERE physical_name = @physical_name
+";
+
+
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand(update, connection))
+            {
+                connection.Open();
+                var parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@logical_name", fileEntity.LogicalFileName),
+                    new SqlParameter("@physical_name", fileEntity.PhygicalFileName),
+                    new SqlParameter("@file_size", fileEntity.FileSize),
+                    new SqlParameter("@display_order", fileEntity.Comment)
+                };
+                command.Parameters.AddRange(parameters.ToArray());
+
+                if (command.ExecuteNonQuery() < 1)
+                {
+                    command.CommandText = insert;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }

@@ -21,7 +21,7 @@ namespace MyFiler.Domain.ValueObjects
         {
             get
             {
-                return Value.ToString();
+                return Value?.ToString();
             }
         }
 
@@ -31,7 +31,7 @@ namespace MyFiler.Domain.ValueObjects
             {
                 // Environment.Newlineを置換するだけでは不十分
                 // * Windowsで作ってLinuxで表示するなど
-                return Value.Replace("\r\n", " ").Replace("\n", " ");
+                return Value?.Replace("\r\n", " ").Replace("\n", " ");
             }
         }
     }

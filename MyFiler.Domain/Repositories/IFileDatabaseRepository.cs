@@ -8,5 +8,6 @@ namespace MyFiler.Domain.ValueObjects
     public interface IFileDatabaseRepository
     {
         IReadOnlyList<FileEntity> GetData();
+        void Save(FileEntity fileEntity);
     }
 }
