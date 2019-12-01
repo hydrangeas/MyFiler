@@ -5,6 +5,7 @@
     <AssemblyName>MyFiler.UI.FileList</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="gong-wpf-dragdrop" Version="2.1.0" />
     <PackageReference Include="MaterialDesignThemes" Version="3.0.0-ci783" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.1.1-ci783" />
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1367" />
