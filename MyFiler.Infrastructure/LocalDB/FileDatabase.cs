@@ -58,8 +58,8 @@ SELECT [id]
                     {
                         result.Add(
                             new FileEntity(
-                                Convert.ToString(reader["logical_name"]),
-                                new PhysicalFileName(new Guid(Convert.ToString(reader["physical_name"]))),
+                                Convert.ToString(reader["logical_file_name"]),
+                                new PhysicalFileName(new Guid(Convert.ToString(reader["physical_file_name"]))),
                                 new FileSize(Convert.ToUInt64(reader["file_size"])),
                                 new Comment(Convert.ToString(reader["comment"]))
                         ));
