@@ -5,6 +5,7 @@
     xmlns:prism="http://prismlibrary.com/"             
     prism:ViewModelLocator.AutoWireViewModel="True"
 
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:dd="urn:gong-wpf-dragdrop"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -17,7 +18,7 @@
         dd:DragDrop.IsDropTarget="True"
         dd:DragDrop.DropHandler="{Binding}">
         <DataGrid
-            x:Name="CadFileDataGrid"
+            x:Name="FileDataGrid"
             ItemsSource="{Binding FileList, Mode=OneWay}"
             AutoGenerateColumns="False"
             IsReadOnly="True"
@@ -46,14 +47,19 @@
                                     IsCancel="True"
                                     Margin="5 0 5 0"
                                     Padding="0"
-                                    Width="21" Height="21"
-                                    Command="{Binding Path=DataContext.DownloadCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                    CommandParameter="{Binding FileDetail}">
+                                    Width="21" Height="21">
                                     <materialDesign:PackIcon
                                         Kind="Download"
                                         Margin="0"
                                         Padding="0"
                                         Width="21" Height="21"/>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <prism:InvokeCommandAction
+                                                Command="{Binding Path=DataContext.DownloadCommand,RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                CommandParameter="{Binding FileDetail}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </Button>
                                 <Button
                                     Style="{StaticResource MaterialDesignFlatButton}"

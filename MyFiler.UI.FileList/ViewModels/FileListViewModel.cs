@@ -33,6 +33,15 @@ namespace MyFiler.UI.FileList.ViewModels
             Update();
         }
 
+        private DelegateCommand<object> _DownloadCommand;
+        public DelegateCommand<object> DownloadCommand =>
+            _DownloadCommand ?? (_DownloadCommand = new DelegateCommand<object>(Download));
+
+        void Download(object _fileEntity)
+        {
+            var fileEntity = (_fileEntity as ReadOnlyReactivePropertySlim<FileEntity>).Value;
+        }
+
         public void DragOver(IDropInfo dropInfo)
         {
             var dragFileList = ((DataObject)dropInfo.Data).GetFileDropList().Cast<string>();
