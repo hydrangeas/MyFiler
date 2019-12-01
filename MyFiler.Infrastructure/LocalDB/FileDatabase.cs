@@ -79,11 +79,11 @@ VALUES
 ";
             string update = @"
 UPDATE metadata
-SET logical_name = @logical_name
+SET logical_file_name = @logical_file_name
    ,file_size = @file_size
    ,comment = @comment
    ,updated = GETDATE()
-WHERE physical_name = @physical_name
+WHERE physical_file_name = @physical_file_name
 ";
 
 
@@ -93,10 +93,10 @@ WHERE physical_name = @physical_name
                 connection.Open();
                 var parameters = new List<SqlParameter>
                 {
-                    new SqlParameter("@logical_name", fileEntity.LogicalFileName),
-                    new SqlParameter("@physical_name", fileEntity.PhygicalFileName),
-                    new SqlParameter("@file_size", fileEntity.FileSize),
-                    new SqlParameter("@display_order", fileEntity.Comment)
+                    new SqlParameter("@logical_file_name", fileEntity.LogicalFileName.Value),
+                    new SqlParameter("@physical_file_name", fileEntity.PhygicalFileName.Value.Value),
+                    new SqlParameter("@file_size", (Int64) fileEntity.FileSize.Value.Value),
+                    new SqlParameter("@comment", "")
                 };
                 command.Parameters.AddRange(parameters.ToArray());
 
