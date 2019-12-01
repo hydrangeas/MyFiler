@@ -30,11 +30,7 @@ namespace MyFiler.UI.FileList.ViewModels
             FileDatabase = fileDatabaseRepository;
             FileInformation = fileRepository;
 
-            var files = FileDatabase.GetData();
-            foreach (var afile in files)
-            {
-                FileList.Add(new FileListViewModelFiles(afile));
-            }
+            Update();
         }
 
         public void DragOver(IDropInfo dropInfo)
@@ -93,9 +89,10 @@ namespace MyFiler.UI.FileList.ViewModels
         public void Update()
         {
             var files = FileDatabase.GetData();
+            FileList.ClearOnScheduler();
             foreach (var afile in files)
             {
-                FileList.Add(new FileListViewModelFiles(afile));
+                FileList.AddOnScheduler(new FileListViewModelFiles(afile));
             }
         }
         public virtual Guid GetNewGuid()
