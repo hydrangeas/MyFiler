@@ -28,7 +28,7 @@ namespace MyFilerTest.Tests
                 fileDatabaseMock.Object,
                 null
                 );
-            viewModel.Files.Count.Is(0);
+            viewModel.FileList.Count.Is(0);
         }
 
         [TestMethod]
@@ -58,25 +58,15 @@ namespace MyFilerTest.Tests
                 fileDatabaseMock.Object,
                 null
                 );
-            viewModel.Files.Count.Is(2);
-            viewModel.Files[0].LogicalFileName.Value.Is("test");
-            viewModel.Files[0].PhysicalFileName.Value.Is("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DA");
-            viewModel.Files[0].FileSize.Value.Is("1.20 KB");
-            viewModel.Files[0].Comment.Value.Is("This is a pen. ");
-            viewModel.Files[1].LogicalFileName.Value.Is("test2");
-            viewModel.Files[1].PhysicalFileName.Value.Is("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DB");
-            viewModel.Files[1].FileSize.Value.Is("1.24 MB");
-            viewModel.Files[1].Comment.Value.Is("This is a  pen.");
-
             viewModel.FileList.Count.Is(2);
-            viewModel.FileList[0].FileSize.Is(viewModel.Files[0].FileSize);
-            viewModel.FileList[0].LogicalFileName.Is(viewModel.Files[0].LogicalFileName);
-            viewModel.FileList[0].PhysicalFileName.Is(viewModel.Files[0].PhysicalFileName);
-            viewModel.FileList[0].Comment.Is(viewModel.Files[0].Comment);
-            viewModel.FileList[1].LogicalFileName.Is(viewModel.Files[1].LogicalFileName);
-            viewModel.FileList[1].PhysicalFileName.Is(viewModel.Files[1].PhysicalFileName);
-            viewModel.FileList[1].FileSize.Is(viewModel.Files[1].FileSize);
-            viewModel.FileList[1].Comment.Is(viewModel.Files[1].Comment);
+            viewModel.FileList[0].LogicalFileName.Value.Is("test");
+            viewModel.FileList[0].PhysicalFileName.Value.Is("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DA");
+            viewModel.FileList[0].FileSize.Value.Is("1.20 KB");
+            viewModel.FileList[0].Comment.Value.Is("This is a pen. ");
+            viewModel.FileList[1].LogicalFileName.Value.Is("test2");
+            viewModel.FileList[1].PhysicalFileName.Value.Is("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DB");
+            viewModel.FileList[1].FileSize.Value.Is("1.24 MB");
+            viewModel.FileList[1].Comment.Value.Is("This is a  pen.");
         }
         [TestMethod]
         public void ファイルドロップ1()
@@ -125,11 +115,11 @@ namespace MyFilerTest.Tests
 
             // 
             viewModel.Drop(dropInfoMock.Object);
-            viewModel.Files.Count.Is(1);
-            viewModel.Files[0].LogicalFileName.Value.Is("test123.stl");
-            viewModel.Files[0].PhysicalFileName.Value.Is("E93ECBD8-EB7F-4478-B99D-C1933EBA3563");
-            viewModel.Files[0].FileSize.Value.Is("1.20 KB");
-            viewModel.Files[0].Comment.Value.IsNull();
+            viewModel.FileList.Count.Is(1);
+            viewModel.FileList[0].LogicalFileName.Value.Is("test123.stl");
+            viewModel.FileList[0].PhysicalFileName.Value.Is("E93ECBD8-EB7F-4478-B99D-C1933EBA3563");
+            viewModel.FileList[0].FileSize.Value.Is("1.20 KB");
+            viewModel.FileList[0].Comment.Value.IsNull();
         }
     }
 }

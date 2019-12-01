@@ -19,10 +19,8 @@ namespace MyFiler.UI.FileList.ViewModels
         public IFileDatabaseRepository FileDatabase = null;
         public IFileRepository FileInformation = null;
 
-        public ReadOnlyReactiveCollection<FileListViewModelFiles> FileList { get; }
-            = new ReactiveCollection<FileListViewModelFiles>().ToReadOnlyReactiveCollection();
-        public ObservableCollection<FileListViewModelFiles> Files { get; }
-            = new ObservableCollection<FileListViewModelFiles>();
+        public ReactiveCollection<FileListViewModelFiles> FileList { get; }
+            = new ReactiveCollection<FileListViewModelFiles>();
 
         public FileListViewModel(
             IFileDatabaseRepository fileDatabaseRepository,
@@ -35,9 +33,8 @@ namespace MyFiler.UI.FileList.ViewModels
             var files = FileDatabase.GetData();
             foreach (var afile in files)
             {
-                Files.Add(new FileListViewModelFiles(afile));
+                FileList.Add(new FileListViewModelFiles(afile));
             }
-            FileList = Files.ToReadOnlyReactiveCollection();
         }
 
         public void DragOver(IDropInfo dropInfo)
@@ -98,9 +95,8 @@ namespace MyFiler.UI.FileList.ViewModels
             var files = FileDatabase.GetData();
             foreach (var afile in files)
             {
-                Files.Add(new FileListViewModelFiles(afile));
+                FileList.Add(new FileListViewModelFiles(afile));
             }
-            //FileList = Files.ToReadOnlyReactiveCollection();
         }
         public virtual Guid GetNewGuid()
         {
