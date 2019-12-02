@@ -27,6 +27,7 @@ namespace MyFilerTest.Tests
 
             var viewModel = new FileListViewModel(
                 fileDatabaseMock.Object,
+                null,
                 null
                 );
             viewModel.FileList.Count.Is(0);
@@ -57,6 +58,7 @@ namespace MyFilerTest.Tests
 
             var viewModel = new FileListViewModel(
                 fileDatabaseMock.Object,
+                null,
                 null
                 );
             viewModel.FileList.Count.Is(2);
@@ -107,9 +109,14 @@ namespace MyFilerTest.Tests
             var fileInformationMock = new Mock<IFileRepository>();
             fileInformationMock.Setup(x => x.GetFileInfo(It.IsAny<string>())).Returns(fileInfoMock.Object);
 
+            var fileStorageMock = new Mock<IFileStorageRepository>();
+            fileStorageMock.Setup(x => x.Upload(It.IsAny<FileEntity>(), It.IsAny<IFileInfo>()))
+                .Callback<FileEntity, IFileInfo>((x, y) => { });
+
             var viewModelMock = new Mock<FileListViewModel>(
                 fileDatabaseMock.Object,
-                fileInformationMock.Object
+                fileInformationMock.Object,
+                fileStorageMock.Object
                 );
             viewModelMock.Setup(x => x.GetNewGuid()).Returns(new Guid("E93ECBD8-EB7F-4478-B99D-C1933EBA3563"));
             var viewModel = viewModelMock.Object;
@@ -160,6 +167,7 @@ namespace MyFilerTest.Tests
 
             var viewModel = new FileListViewModel(
                 fileDatabaseMock.Object,
+                null,
                 null
                 );
             viewModel.FileList.Count.Is(2);

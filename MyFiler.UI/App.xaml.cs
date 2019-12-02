@@ -1,5 +1,6 @@
 ﻿using MyFiler.Domain.Repositories;
 using MyFiler.Domain.ValueObjects;
+using MyFiler.Infrastructure.Azure.BlobStorage;
 using MyFiler.Infrastructure.LocalDB;
 using MyFiler.Infrastructure.LocalFile;
 using MyFiler.UI.FileList;
@@ -24,6 +25,7 @@ namespace MyFiler.UI
         {
             containerRegistry.RegisterInstance<IFileDatabaseRepository>(new FileDatabase());
             containerRegistry.RegisterInstance<IFileRepository>(new File());
+            containerRegistry.RegisterInstance<IFileStorageRepository>(new FileStorage());
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

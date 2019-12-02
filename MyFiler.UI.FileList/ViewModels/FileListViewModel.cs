@@ -18,28 +18,32 @@ namespace MyFiler.UI.FileList.ViewModels
     {
         public IFileDatabaseRepository FileDatabase = null;
         public IFileRepository FileInformation = null;
+        public IFileStorageRepository FileStorage = null;
 
         public ReactiveCollection<FileListViewModelFiles> FileList { get; }
             = new ReactiveCollection<FileListViewModelFiles>();
 
         public FileListViewModel(
             IFileDatabaseRepository fileDatabaseRepository,
-            IFileRepository fileRepository
+            IFileRepository fileRepository,
+            IFileStorageRepository fileStorageRepository
             )
         {
             FileDatabase = fileDatabaseRepository;
             FileInformation = fileRepository;
+            FileStorage = fileStorageRepository;
 
             Update();
         }
 
         private DelegateCommand<object> _DownloadCommand;
         public DelegateCommand<object> DownloadCommand =>
-            _DownloadCommand ?? (_DownloadCommand = new DelegateCommand<object>(Download));
+            _DownloadCommand ?? (_DownloadCommand = new DelegateCommand<object>(DownloadAsync));
 
-        public void Download(object _fileEntity)
+        public async void DownloadAsync(object _fileEntity)
         {
             var fileEntity = (_fileEntity as ReadOnlyReactivePropertySlim<FileEntity>).Value;
+            await FileStorage.Download(fileEntity);
         }
 
         private DelegateCommand<object> _DeleteCommand;
@@ -70,7 +74,7 @@ namespace MyFiler.UI.FileList.ViewModels
             dropInfo.Effects = DragDropEffects.Copy;
         }
 
-        public void Drop(IDropInfo dropInfo)
+        public async void Drop(IDropInfo dropInfo)
         {
             //IsBusy = true;
             try
@@ -81,16 +85,15 @@ namespace MyFiler.UI.FileList.ViewModels
                 {
                     var fileInfo = FileInformation.GetFileInfo(afile);
                     //_logger.GetLogger().Info($"[Drop] {file} is processing..");
-                    //var physicalFileName = GetNewGuid();
-                    //await _cadFileStorage.Upload(fileInfo, physicalFileName);
+                    var fileEntity = new FileEntity(
+                            fileInfo.Name,
+                            new PhysicalFileName(GetNewGuid()),
+                            new FileSize((UInt64)fileInfo.Length),
+                            new Comment(null)
+                            );
+                    await FileStorage.Upload(fileEntity, fileInfo);
                     //_logger.GetLogger().Info($"[Drop] {file} is uploaded");
-                    FileDatabase.Save(
-                        new FileEntity(
-                                fileInfo.Name,
-                                new PhysicalFileName(GetNewGuid()),
-                                new FileSize((UInt64)fileInfo.Length),
-                                new Comment(null)
-                                ));
+                    FileDatabase.Save(fileEntity);
                     //_logger.GetLogger().Info($"[Drop] {file} is registered");
                 }
                 Update();
