@@ -37,7 +37,21 @@ namespace MyFiler.Infrastructure.LocalDB
 
         public void Delete(FileEntity fileEntity)
         {
-            throw new NotImplementedException();
+            string delete = @"
+DELETE FROM metadata WHERE physical_file_name=@physical_file_name;
+";
+
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand(delete, connection))
+            {
+                connection.Open();
+                var parameters = new List<SqlParameter>
+                {
+                    new SqlParameter("@physical_file_name", fileEntity.PhysicalFileName.Value.DisplayValue),
+                };
+                command.Parameters.AddRange(parameters.ToArray());
+                command.ExecuteNonQuery();
+            }
         }
 
         public IReadOnlyList<FileEntity> GetData()
