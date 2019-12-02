@@ -35,6 +35,11 @@ namespace MyFiler.Infrastructure.LocalDB
             }
         }
 
+        public void Delete(FileEntity fileEntity)
+        {
+            throw new NotImplementedException();
+        }
+
         public IReadOnlyList<FileEntity> GetData()
         {
             string sql = @"

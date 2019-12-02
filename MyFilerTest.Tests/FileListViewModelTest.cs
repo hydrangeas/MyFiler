@@ -10,6 +10,7 @@ using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Windows;
 
 namespace MyFilerTest.Tests
@@ -104,7 +105,7 @@ namespace MyFilerTest.Tests
             fileInfoMock.Setup(x => x.Name).Returns("test123.stl");
             fileInfoMock.Setup(x => x.Length).Returns(1230);
             var fileInformationMock = new Mock<IFileRepository>();
-            fileInformationMock.Setup(x=>x.GetFileInfo(It.IsAny<string>())).Returns(fileInfoMock.Object);
+            fileInformationMock.Setup(x => x.GetFileInfo(It.IsAny<string>())).Returns(fileInfoMock.Object);
 
             var viewModelMock = new Mock<FileListViewModel>(
                 fileDatabaseMock.Object,
@@ -113,13 +114,65 @@ namespace MyFilerTest.Tests
             viewModelMock.Setup(x => x.GetNewGuid()).Returns(new Guid("E93ECBD8-EB7F-4478-B99D-C1933EBA3563"));
             var viewModel = viewModelMock.Object;
 
-            // 
+
             viewModel.Drop(dropInfoMock.Object);
             viewModel.FileList.Count.Is(1);
             viewModel.FileList[0].LogicalFileName.Value.Is("test123.stl");
             viewModel.FileList[0].PhysicalFileName.Value.Is("E93ECBD8-EB7F-4478-B99D-C1933EBA3563");
             viewModel.FileList[0].FileSize.Value.Is("1.20 KB");
             viewModel.FileList[0].Comment.Value.IsNull();
+        }
+
+        [TestMethod]
+        public void 削除()
+        {
+            var fileEntity1 = new FileEntity(
+                "test",
+                new PhysicalFileName(new Guid("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DA")),
+                new FileSize(1230),
+                new Comment("This is a pen.\n")
+                );
+            var fileEntitySlim1
+                = new ReactivePropertySlim<FileEntity>(fileEntity1).ToReadOnlyReactivePropertySlim();
+            var fileEntity2 = new FileEntity(
+                "test2",
+                new PhysicalFileName(new Guid("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DB")),
+                new FileSize(1300234),
+                new Comment("This is a \r\npen.")
+                );
+            var fileEntitySlim2
+                = new ReactivePropertySlim<FileEntity>(fileEntity2).ToReadOnlyReactivePropertySlim();
+
+            var fileDatabaseMock = new Mock<IFileDatabaseRepository>();
+            var entities = new List<FileEntity>();
+            entities.Add(fileEntity1);
+            entities.Add(fileEntity2);
+            fileDatabaseMock.Setup(x => x.GetData()).Returns(entities);
+
+            fileDatabaseMock.Setup(x => x.Delete(It.IsAny<FileEntity>()))
+                .Callback<FileEntity>(value =>
+                {
+                    entities.RemoveAll(entity => entity.Equals(value));
+                    fileDatabaseMock
+                        .Setup(x => x.GetData())
+                        .Returns(() => entities);
+                });
+
+            var viewModel = new FileListViewModel(
+                fileDatabaseMock.Object,
+                null
+                );
+            viewModel.FileList.Count.Is(2);
+
+            viewModel.Delete(fileEntitySlim1);
+            viewModel.FileList.Count.Is(1);
+            viewModel.FileList[0].LogicalFileName.Value.Is("test2");
+            viewModel.FileList[0].PhysicalFileName.Value.Is("2DA0C0DC-8EB9-4DF2-B224-DF57CC5671DB");
+            viewModel.FileList[0].FileSize.Value.Is("1.24 MB");
+            viewModel.FileList[0].Comment.Value.Is("This is a  pen.");
+
+            viewModel.Delete(fileEntitySlim2);
+            viewModel.FileList.Count.Is(0);
         }
     }
 }

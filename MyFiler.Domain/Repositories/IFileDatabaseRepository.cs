@@ -9,5 +9,6 @@ namespace MyFiler.Domain.ValueObjects
     {
         IReadOnlyList<FileEntity> GetData();
         void Save(FileEntity fileEntity);
+        void Delete(FileEntity fileEntity);
     }
 }

@@ -37,9 +37,20 @@ namespace MyFiler.UI.FileList.ViewModels
         public DelegateCommand<object> DownloadCommand =>
             _DownloadCommand ?? (_DownloadCommand = new DelegateCommand<object>(Download));
 
-        void Download(object _fileEntity)
+        public void Download(object _fileEntity)
         {
             var fileEntity = (_fileEntity as ReadOnlyReactivePropertySlim<FileEntity>).Value;
+        }
+
+        private DelegateCommand<object> _DeleteCommand;
+        public DelegateCommand<object> DeleteCommand =>
+            _DeleteCommand ?? (_DeleteCommand = new DelegateCommand<object>(Delete));
+
+        public void Delete(object _fileEntity)
+        {
+            var fileEntity = (_fileEntity as ReadOnlyReactivePropertySlim<FileEntity>).Value;
+            FileDatabase.Delete(fileEntity);
+            Update();
         }
 
         public void DragOver(IDropInfo dropInfo)
